@@ -22,8 +22,8 @@ ngss_text <- filter(ngss_tweets, lang == "en")
 ccss_text <- filter(ccss_tweets, lang == "en")
 
 #add column to identify standard category
-ngss_text <- mutate(ngss_text, standards = "ngss")
-ccss_text <- mutate(ccss_text, standards = "ccss")
+ngss_text <- mutate(ngss_text, standards = "NGSS")
+ccss_text <- mutate(ccss_text, standards = "CCSS")
 
 #reorder the columns
 ngss_text <- relocate(ngss_text, standards)
@@ -53,10 +53,10 @@ tidy_tweets <-
 count(tidy_tweets, word, sort = T)
 
 #get sentiments from AFINN, nrc, bing, loughran
-afinn <- get_sentiments("afinn")
-bing <- get_sentiments("bing")
-nrc <- get_sentiments("nrc")
-loughran <- get_sentiments("loughran")
+afinn <- get_sentiments("AFINN")
+bing <- get_sentiments("BING")
+nrc <- get_sentiments("NRC")
+loughran <- get_sentiments("LOUGHRAN")
 
 #join sentiments by word
 sentiment_afinn <- inner_join(tidy_tweets, afinn, by = "word")
@@ -82,24 +82,24 @@ summary_afinn2 <- sentiment_afinn %>%
   filter(value != 0) %>%
   mutate(sentiment = if_else(value < 0, "negative", "positive")) %>%
   count(sentiment, sort = TRUE) %>%
-  mutate(method = "afinn")
+  mutate(method = "AFINN")
 
 summary_bing2 <- sentiment_bing %>%
   group_by(standards) %>%
   count(sentiment, sort = TRUE) %>%
-  mutate(method = "bing")
+  mutate(method = "BING")
 
 summary_nrc2 <- sentiment_nrc %>%
   filter(sentiment %in% c("positive", "negative")) %>%
   group_by(standards) %>%
   count(sentiment, sort = TRUE) %>%
-  mutate(method = "nrc")
+  mutate(method = "NRC")
 
 summary_loughran2 <- sentiment_loughran %>%
   filter(sentiment %in% c("positive", "negative")) %>%
   group_by(standards) %>%
   count(sentiment, sort = TRUE) %>%
-  mutate(method = "loughran")
+  mutate(method = "LOUGHRAN")
 
 
 #view summaries
@@ -140,16 +140,23 @@ sentiment_percents %>%
        x = "State Standards",
        y = "Percentage of Words")
 
-#Small multiples visualization
+#Small multiples visualization with green stacked
 sentiment_percents %>%
-group_by(method) %>%
-slice_max(percent, n = 2) %>%
-ungroup() %>%
 ggplot(aes(standards, percent, fill = percent)) +
-  theme_gray() +
-  scale_fill_distiller(palette = "Blues") +
-  labs(title="Comparison of positive and negative sentiment in NGSS and CCSS Tweets") +
+  theme_minimal() +
+  scale_fill_distiller(palette = "Greens") +
+  labs(title="Comparison of positive sentiment in NGSS and CCSS Tweets") +
 geom_col(show.legend = FALSE) +
 facet_wrap(~method, ncol = 2, scales = "free")
+
+#Small multiples visualization with green not stacked
+sentiment_percents %>%
+  ggplot(aes(standards, percent,fill = percent)) +
+  geom_bar(position = "dodge") +
+  scale_fill_distiller(palette = "Greens") +
+  labs(title="Comparison of positive sentiment in NGSS and CCSS Tweets") +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~method, ncol = 2, scales = "free")
+
 
 
