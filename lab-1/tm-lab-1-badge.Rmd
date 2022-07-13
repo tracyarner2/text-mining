@@ -26,25 +26,25 @@ Use the institutional library (e.g. [NCSU Library](https://www.lib.ncsu.edu/#art
 
 1.  Provide an APA citation for your selected study.
 
-    -   
+    -   Gottipati, S., Shankararaman, V., & Lin, J. R. (2018). Text analytics approach to extract course improvement suggestions from students' feedback. *Research and Practice in Technology Enhanced Learning*, *13*(1), 1-19.
 
 2.  How does the visualization address research questions?
 
     -   
 
-Draft a research question for a population you may be interested in studying, or that would be of interest to educational researchers, and that would require the collection of text data and answer the following questions:
+Draft a research question for a population you may be interested in studying, or that would be of interest to educational researchers, and that would require the collection of text data and answer the following questions: What are the most important features or capabilities of a writing analytics tool being used in secondary classrooms
 
 1.  What text data would need to be collected?
 
-    -   
+    -   Survey data would need to be collected with a variety of open-ended, text response questions. Teachers would be asked to describe their experience with automated writing evaluation as a whole, as well as specific features of AWE systems.
 
 2.  For what reason would text data need to be collected in order to address this question?
 
-    -   
+    -   The overarching purpose of collecting these data is to inform development of a new tool. Survey data can
 
 3.  Explain the analytical level at which these text data would need to be collected and analyzed.
 
-    -   
+    -   The design-implementation framework
 
 ### Part II: Data Product
 
