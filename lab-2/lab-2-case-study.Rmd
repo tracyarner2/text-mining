@@ -517,6 +517,7 @@ tweet_tokens <-
                 token = "tweets")
 ```
 
+
 Notice that we've included an additional argument in the call to `unnest_tokens()`. Specifically, we used the specialized `“tweets”` tokenizer in the `tokens =` argument that is very useful for dealing with Twitter text or other text from online forums in that it retains hashtags and mentions of usernames with the \@ symbol.
 
 #### Remove Stop Words
@@ -983,7 +984,7 @@ summary_nrc2 <- sentiment_nrc %>%
   group_by(standards) %>% 
   count(sentiment, sort = TRUE) %>% 
   mutate(method = "nrc") 
-
+summary_nrc2
 summary_loughran2 <- sentiment_loughran %>% 
   filter(sentiment %in% c("positive", "negative")) %>%
   group_by(standards) %>% 

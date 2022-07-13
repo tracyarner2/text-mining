@@ -30,7 +30,7 @@ Use the institutional library (e.g. [NCSU Library](https://www.lib.ncsu.edu/#art
 
 2.  How does the visualization address research questions?
 
-    -   
+    -   The authors reviewed feedback surveys from students and they used a variety of analyses for their opinion mining. The paper described a suggestions table that could be used to generate word clouds which can subsequently be used to review a single course or across multiple courses.
 
 Draft a research question for a population you may be interested in studying, or that would be of interest to educational researchers, and that would require the collection of text data and answer the following questions: What are the most important features or capabilities of a writing analytics tool being used in secondary classrooms
 
@@ -40,11 +40,11 @@ Draft a research question for a population you may be interested in studying, or
 
 2.  For what reason would text data need to be collected in order to address this question?
 
-    -   The overarching purpose of collecting these data is to inform development of a new tool. Survey data can
+    -   The overarching purpose of collecting these data is to inform development of a new writing analytics tool so that it is useful and valauble to teachers and students. Survey data can be collected that includes open ended questions asking teachers to describe their experience with AWE tools as well as the things they do/don't like, the challenges that they and their students have experienced, and their thoughts/beliefs about AWE overall.
 
 3.  Explain the analytical level at which these text data would need to be collected and analyzed.
 
-    -   The design-implementation framework
+    -   The design-implementation framework includes a continuous cycle of ideation, development, feedback, and revision. The text data would be analyzed for the overall themes for each of the open ended questions as well as the significant challenges. The
 
 ### Part II: Data Product
 
