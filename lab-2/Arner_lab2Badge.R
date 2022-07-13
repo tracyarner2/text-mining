@@ -150,13 +150,13 @@ geom_col(show.legend = FALSE) +
 facet_wrap(~method, ncol = 2, scales = "free")
 
 #Small multiples visualization with green not stacked
-sentiment_percents %>%
-  ggplot(aes(standards, percent,fill = percent)) +
-  geom_bar(position = "dodge") +
-  scale_fill_distiller(palette = "Greens") +
-  labs(title="Comparison of positive sentiment in NGSS and CCSS Tweets") +
-  geom_col(show.legend = FALSE) +
+
+
+ggplot(sentiment_percents, aes(standards, percent, fill=sentiment)) +
+  geom_bar(stat='identity', position = "dodge") +
+  theme(legend.position="none", plot.title=element_text(hjust=0.5)) +
+  labs(title="Comparison of positive sentiment in NGSS and CCSS Tweets",
+       x="Standards",
+       y="Percent") +
   facet_wrap(~method, ncol = 2, scales = "free")
-
-
 
