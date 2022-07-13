@@ -331,7 +331,7 @@ Using the following code to create a copy of the opd_survey.csv file in
 your data folder from the `opd_survey` data frame you created:
 
 ```{r, eval=F}
-write_csv(opd_survey, "data/opd_survey_copy.csv")
+write_csv(opd_survey, "data/opd_survey_copy.csv") 
 ```
 
 Note that the first argument is the data frame you created earlier and
@@ -399,7 +399,7 @@ respectively pertain to educator role, OPD resource they are evaluating,
 and, as illustrated by the second row,
 
 ```{r}
-opd_selected <- select(opd_survey, Role, Resource, Q21)
+opd_selected <- select(opd_survey, Role, Resource...6, Q21)
 ```
 
 Notice that like the bulk of all tidyverse functions, the first input
@@ -490,7 +490,7 @@ simplify these cleaning steps and reduce the code written
 
 ```{r}
 opd_teacher <- opd_survey %>%
-  select(Role, Resource, Q21) %>%
+  select(Role, Resource...6, Q21) %>%
   rename(text = Q21) %>%
   slice(-1, -2) %>%
   na.omit() %>%
@@ -591,7 +591,7 @@ our previous piped chain of functions like so:
 
 ```{r}
 opd_tidy <- opd_survey %>%
-  select(Role, Resource, Q21) %>%
+  select(Role, Resource...6, Q21) %>%
   rename(text = Q21) %>%
   slice(-1, -2) %>%
   na.omit() %>%
@@ -775,7 +775,7 @@ dataset.
 
 ```{r}
 opd_resource_counts <- opd_clean %>%
-  count(Resource, word, sort = TRUE)
+  count(Resource...6, word, sort = TRUE)
 
 view(opd_resource_counts)
 ```
@@ -803,8 +803,8 @@ operator:
 
 ```{r}
 opd_frequencies <- opd_clean %>%
-  count(Resource, word, sort = TRUE) %>%
-  group_by(Resource) %>%
+  count(Resource...6, word, sort = TRUE) %>%
+  group_by(Resource...6) %>%
   mutate(proportion = n / sum(n))
 
 opd_frequencies
@@ -853,7 +853,7 @@ data set, we'll calculate word counts for each 'Resource'.
 ```{r}
 opd_words <- opd_teacher %>%
   unnest_tokens(word, text) %>%
-  count(Resource, word, sort = TRUE)
+  count(Resource...6, word, sort = TRUE)
 
 head(opd_words)
 ```
@@ -862,7 +862,7 @@ Next, let's calculate the total words per `Resource` type:
 
 ```{r}
 total_words <- opd_words %>%
-  group_by(Resource) %>%
+  group_by(Resource...6) %>%
   summarise(total = sum(n))
 
 total_words
@@ -883,7 +883,7 @@ given online resource type:
 
 ```{r}
 opd_tf_idf <- opd_totals %>%
-  bind_tf_idf(word, Resource, n)
+  bind_tf_idf(word, Resource...6, n)
 
 opd_tf_idf
 
@@ -1043,13 +1043,13 @@ small multiple for our `opd_frequencies` data set instead of the
 library(forcats)
 
 opd_frequencies %>%
-  filter(Resource != "Calendar") %>% # remove Calendar responses, too few. 
-  group_by(Resource) %>%
+  filter(Resource...6 != "Calendar") %>% # remove Calendar responses, too few. 
+  group_by(Resource...6) %>%
   slice_max(proportion, n = 5) %>%
   ungroup() %>%
-  ggplot(aes(proportion, fct_reorder(word, proportion), fill = Resource)) +
+  ggplot(aes(proportion, fct_reorder(word, proportion), fill = Resource...6)) +
   geom_col(show.legend = FALSE) +
-  facet_wrap(~Resource, ncol = 3, scales = "free")
+  facet_wrap(~Resource...6, ncol = 3, scales = "free")
 ```
 
 #### Comprehension Check
