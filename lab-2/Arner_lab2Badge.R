@@ -160,3 +160,4 @@ ggplot(sentiment_percents, aes(standards, percent, fill=sentiment)) +
        y="Percent") +
   facet_wrap(~method, ncol = 2, scales = "free")
 
+
