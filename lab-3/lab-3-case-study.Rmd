@@ -57,7 +57,7 @@ documents and text of interests, Silge & Robinson and a new bottom row
 their flowchart consisting new data structures (i.e., a corpus object
 and document-term matrix) and and the LDA model:  
 
-[![Figure source: Silge, J., & Robinson, D. (2017). Text mining with R: A tidy approach. O\'Reilly Media, Inc.
+[![Figure source: Silge, J., & Robinson, D. (2017). Text mining with R: A tidy approach. O'Reilly Media, Inc.
 Retrieved from:
 https://www.tidytextmining.com/topicmodeling.html](img/tm_flow.png "A flowchart of a text analysis that incorporates topic modeling. The topicmodels package takes a Document-Term Matrix as input and produces a model that can be tided by tidytext, such that it can be manipulated and visualized with dplyr and ggplot2."){width="90%"}](https://www.tidytextmining.com/topicmodeling.html)
 
@@ -391,9 +391,11 @@ Your output should look something like this:
 ```{r find-quotes, echo=FALSE}
 forum_quotes <- ts_forum_data %>%
   select(post_content) %>% 
-  filter(grepl('time', post_content))
+  filter(grepl(" time", post_content))
 
-sample_n(forum_quotes,10)
+sample <- sample_n(forum_quotes,10)
+sample
+
 ```
 
 #### Creating a Document Term Matrix
@@ -505,7 +507,7 @@ Note that the first argument the `textProcessor` function expects is the
 column in our data frame that contains the text to be processed, the
 second argument `metadata =` expects the data frame that contains the
 text of interest and uses the column names to label the metadata such as
-course ids and forum names. This meatdata can be used to to improve the
+course ids and forum names. This metadata can be used to to improve the
 assignment of words to topics in a corpus and examine the relationship
 between topics and various covariates of interest.
 
