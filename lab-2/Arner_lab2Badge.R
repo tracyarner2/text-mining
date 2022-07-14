@@ -53,10 +53,10 @@ tidy_tweets <-
 count(tidy_tweets, word, sort = T)
 
 #get sentiments from AFINN, nrc, bing, loughran
-afinn <- get_sentiments("AFINN")
-bing <- get_sentiments("BING")
-nrc <- get_sentiments("NRC")
-loughran <- get_sentiments("LOUGHRAN")
+afinn <- get_sentiments("afinn")
+bing <- get_sentiments("bing")
+nrc <- get_sentiments("nrc")
+loughran <- get_sentiments("loughran")
 
 #join sentiments by word
 sentiment_afinn <- inner_join(tidy_tweets, afinn, by = "word")
@@ -82,24 +82,24 @@ summary_afinn2 <- sentiment_afinn %>%
   filter(value != 0) %>%
   mutate(sentiment = if_else(value < 0, "negative", "positive")) %>%
   count(sentiment, sort = TRUE) %>%
-  mutate(method = "AFINN")
+  mutate(method = "afinn")
 
 summary_bing2 <- sentiment_bing %>%
   group_by(standards) %>%
   count(sentiment, sort = TRUE) %>%
-  mutate(method = "BING")
+  mutate(method = "bing")
 
 summary_nrc2 <- sentiment_nrc %>%
   filter(sentiment %in% c("positive", "negative")) %>%
   group_by(standards) %>%
   count(sentiment, sort = TRUE) %>%
-  mutate(method = "NRC")
+  mutate(method = "nrc")
 
 summary_loughran2 <- sentiment_loughran %>%
   filter(sentiment %in% c("positive", "negative")) %>%
   group_by(standards) %>%
   count(sentiment, sort = TRUE) %>%
-  mutate(method = "LOUGHRAN")
+  mutate(method = "loughran")
 
 
 #view summaries

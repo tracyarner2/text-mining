@@ -26,11 +26,11 @@ Use the institutional library (e.g. [NCSU Library](https://www.lib.ncsu.edu/#art
 
 1.  Provide an APA citation for your selected study.
 
-    -   
+    -   Kabir, A. I., Karim, R., Newaz, S., & Hossain, M. I. (2018). The Power of Social Media Analytics: Text Analytics Based on Sentiment Analysis and Word Clouds on R. Informatica Economica, 22(1).
 
 2.  How does the sentiment analysis address research questions?
 
-    -   
+    -   The sentiment analysis looks at sentiment of tweets over time with a line graph of positive, negative, and neutral tweets as well as a word cloud. The tweets for the sentiment analysis were taken from the account of a Bangladeshi businessman and the data dictionaries that they used to detect affect were custom text files. The purpose of the paper (i.e., research question) was to explore whether or not sentiment analysis could be useful in analyzing tweets as well as what information could be gleaned from generating a word cloud from tweets overtime. 
 
 Draft a research question for a population you may be interested in studying, or that would be of interest to educational researchers, and that would require the collection of text data and answer the following questions:
 What is the level of adoption by valance of CCSS standards by geographic area based on tweet data?
@@ -55,7 +55,8 @@ Use your case study file to create small multiples like the following figure:
 I highly recommend creating a new R script in your lab-2 folder to complete this task. When your code is ready to share, use the code chunk below to share the final code for your model and answer the questions that follow.
 
 ```{r, my-data-product}
-# YOUR FINAL CODE HERE
+
+
 
 library(forcats)
 library(dplyr)
@@ -111,10 +112,10 @@ tidy_tweets <-
 count(tidy_tweets, word, sort = T)
 
 #get sentiments from AFINN, nrc, bing, loughran
-afinn <- get_sentiments("AFINN")
-bing <- get_sentiments("BING")
-nrc <- get_sentiments("NRC")
-loughran <- get_sentiments("LOUGHRAN")
+afinn <- get_sentiments("afinn")
+bing <- get_sentiments("bing")
+nrc <- get_sentiments("nrc")
+loughran <- get_sentiments("loughran")
 
 #join sentiments by word
 sentiment_afinn <- inner_join(tidy_tweets, afinn, by = "word")
@@ -140,24 +141,24 @@ summary_afinn2 <- sentiment_afinn %>%
   filter(value != 0) %>%
   mutate(sentiment = if_else(value < 0, "negative", "positive")) %>%
   count(sentiment, sort = TRUE) %>%
-  mutate(method = "AFINN")
+  mutate(method = "afinn")
 
 summary_bing2 <- sentiment_bing %>%
   group_by(standards) %>%
   count(sentiment, sort = TRUE) %>%
-  mutate(method = "BING")
+  mutate(method = "bing")
 
 summary_nrc2 <- sentiment_nrc %>%
   filter(sentiment %in% c("positive", "negative")) %>%
   group_by(standards) %>%
   count(sentiment, sort = TRUE) %>%
-  mutate(method = "NRC")
+  mutate(method = "nrc")
 
 summary_loughran2 <- sentiment_loughran %>%
   filter(sentiment %in% c("positive", "negative")) %>%
   group_by(standards) %>%
   count(sentiment, sort = TRUE) %>%
-  mutate(method = "LOUGHRAN")
+  mutate(method = "loughran")
 
 
 #view summaries
@@ -217,6 +218,8 @@ ggplot(sentiment_percents, aes(standards, percent, fill=sentiment)) +
        x="Standards",
        y="Percent") +
   facet_wrap(~method, ncol = 2, scales = "free")
+
+
 
 ```
 
