@@ -81,13 +81,13 @@ First, let's load the following packages that we'll be needing for this
 walkthrough:
 
 ```{r load-packages, message=FALSE}
-install.packages("naivebayes")
+#install.packages("naivebayes")
 library(naivebayes)
 library(tidyverse)
 library(tidymodels)
-install.packages("textrecipes")
+#install.packages("textrecipes")
 library(textrecipes)
-install.packages("discrim")
+#install.packages("discrim")
 library(discrim) #naive Bayes model is available in the tidymodels package discrim.
 ```
 
@@ -202,11 +202,18 @@ comments_folds
 Now let's set up a naive bayes model.
 
 ```{r}
-nb_spec <- naive_Bayes() %>%
-  set_mode("classification") %>%
-  set_engine("naivebayes")
+#nb_spec <- naive_Bayes() %>%
+  #set_mode("classification") %>%
+  #set_engine("naivebayes")
 
-nb_spec
+#nb_spec
+#install.packages("kernlab")
+#library(kernlab)
+svm_spec <- svm_poly (degree = 1) %>%
+              set_mode("classification")%>%
+              set_engine("kernlab", scaled = false)
+
+svm_spec
 ```
 
 Now that we have a full specification of the preprocessing recipe and
@@ -214,11 +221,16 @@ set up a model, we can build up a tidymodels `workflow()` to bundle
 together our modeling components.
 
 ```{r}
-nb_wf <- workflow() %>%
-  add_recipe(comments_rec) %>%
-  add_model(nb_spec)
+#nb_wf <- workflow() %>%
+  #add_recipe(comments_rec) %>%
+  #add_model(nb_spec)
 
-nb_wf
+#nb_wf
+
+svm_wf <- workflow() %>%
+  add_recipe(comments_rec) %>%
+  add_model(svm_spec)
+svm_wf
 ```
 
 We fit one time to the training data as a whole. Now, to estimate how
@@ -226,10 +238,17 @@ well that model performs, let's fit the model many times, once to each
 of these resampled folds, and then evaluate on the heldout part of each
 resampled fold.
 
-```{r}
-nb_rs <- fit_resamples(
-  nb_wf,
-  comments_folds,
+```{r setup, include=TRUE, cache = FALSE}
+
+#nb_rs <- fit_resamples(
+  #nb_wf,
+  #comments_folds,
+  #control = control_resamples(save_pred = TRUE)
+#)
+
+svm_rs <- fit_resamples(
+  svm_wf,
+  comments_folds, 
   control = control_resamples(save_pred = TRUE)
 )
 ```
@@ -240,6 +259,10 @@ We can use `collect_metrics()` to get evaluation information.
 nb_rs_metrics <- collect_metrics(nb_rs)
 
 nb_rs_metrics
+
+svm_rs_metrics <- collect_metrics(svm_rs)
+
+svm_rs_metrics
 ```
 
 Another way to evaluate our model is to evaluate the confusion matrix. A
