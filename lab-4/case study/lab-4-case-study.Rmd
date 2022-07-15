@@ -81,9 +81,13 @@ First, let's load the following packages that we'll be needing for this
 walkthrough:
 
 ```{r load-packages, message=FALSE}
+install.packages("naivebayes")
+library(naivebayes)
 library(tidyverse)
 library(tidymodels)
+install.packages("textrecipes")
 library(textrecipes)
+install.packages("discrim")
 library(discrim) #naive Bayes model is available in the tidymodels package discrim.
 ```
 
@@ -185,7 +189,8 @@ comments_rec <- comments_rec %>%
 
 Let's create 10-fold cross-validation sets, and use these resampled sets
 for performance estimates. In this way, 90% of the training data is
-included in each fold, and the other 10% is held out for evaluation.
+included in each fold, and the other 10% is held out for evaluation. 
+vfold defaults to 10 folds.
 
 ```{r}
 set.seed(234)
